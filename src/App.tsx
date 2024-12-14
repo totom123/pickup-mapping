@@ -1,19 +1,23 @@
 import React from "react";
 import "./App.css";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import MainMap from "./components/MainMap";
-import { Box, TextField } from "@mui/material";
-import LocationForm from "./components/LocationForm";
+import { Box } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SnackbarProvider } from "notistack";
 
 // Create a client
 const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Box sx={{ height: "100vh" }} className="App">
-        <MainMap />
-      </Box>
+      <SnackbarProvider
+        autoHideDuration={5000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+      >
+        <Box sx={{ height: "100vh" }} className="App">
+          <MainMap />
+        </Box>
+      </SnackbarProvider>
     </QueryClientProvider>
   );
 }

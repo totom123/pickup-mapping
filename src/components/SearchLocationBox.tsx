@@ -1,28 +1,30 @@
-import { StandaloneSearchBox } from "@react-google-maps/api";
-import { HK_CENTER } from "../constants/geo";
+import { Autocomplete, StandaloneSearchBox } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
 
 interface ISearchLocationBox {
   inputRef: React.RefObject<HTMLInputElement>;
   id: string;
   label: string;
+  disabled?: boolean;
 }
 
-const SearchLocationBox = ({ inputRef, id, label }: ISearchLocationBox) => {
-  const bounds = new google.maps.LatLngBounds({
-    lat: HK_CENTER.lat,
-    lng: HK_CENTER.lng,
-  });
+const SearchLocationBox = ({
+  inputRef,
+  id,
+  label,
+  disabled = false,
+}: ISearchLocationBox) => {
   return (
-    <StandaloneSearchBox bounds={bounds}>
+    <Autocomplete restrictions={{ country: "HK" }}>
       <TextField
         inputRef={inputRef}
         id={id}
         label={label}
         variant="outlined"
         sx={{ mb: "30px", width: "100%" }}
+        disabled={disabled}
       />
-    </StandaloneSearchBox>
+    </Autocomplete>
   );
 };
 export default SearchLocationBox;
