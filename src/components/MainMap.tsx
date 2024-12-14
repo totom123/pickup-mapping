@@ -53,6 +53,7 @@ const MainMap = () => {
         setPathValue={setPathValue}
         mapObj={mapObj}
         pathObj={pathObj}
+        pathValue={pathValue}
       />
       <Polyline
         options={{

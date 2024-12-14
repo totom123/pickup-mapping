@@ -8,9 +8,11 @@ import {
   onPostRoute,
 } from "../services/routeApis";
 import { enqueueSnackbar } from "notistack";
-import { HK_CENTER } from "../constants/geo";
+import PathTitle from "./PathTitle";
+import PathDesc from "./PathDesc";
 
 interface ILocationForm {
+  pathValue?: IGetRouteResSuccess;
   setPathValue: React.Dispatch<
     React.SetStateAction<IGetRouteResSuccess | undefined>
   >;
@@ -18,22 +20,33 @@ interface ILocationForm {
   pathObj?: google.maps.Polyline;
 }
 
-const LocationForm = ({ setPathValue, mapObj, pathObj }: ILocationForm) => {
+const LocationForm = ({
+  pathValue,
+  setPathValue,
+  mapObj,
+  pathObj,
+}: ILocationForm) => {
   const startInputRef = useRef<HTMLInputElement>(null);
   const endInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitedLocations, setSubmitedLocations] = useState<
+    string[] | undefined
+  >();
   const onReset = () => {
     setPathValue(undefined);
     pathObj?.setPath([]);
+
+    setSubmitedLocations(undefined);
     if (startInputRef?.current) startInputRef.current.value = "";
     if (endInputRef?.current) endInputRef.current.value = "";
   };
 
   const onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     try {
-      setIsLoading(true);
-      setPathValue(undefined);
       evt.preventDefault();
+      setIsLoading(true);
+      // setPathValue(undefined);
+      // pathObj?.setPath([]);
       const startVal = startInputRef?.current?.value;
       const endVal = endInputRef?.current?.value;
       if (!startVal || !endVal) {
@@ -48,6 +61,7 @@ const LocationForm = ({ setPathValue, mapObj, pathObj }: ILocationForm) => {
         throw new Error(res.error);
       }
       setPathValue(res);
+      setSubmitedLocations([startVal, endVal]);
       if (mapObj) {
         const allPoints = new window.google.maps.LatLngBounds();
         res.path.forEach((p) => allPoints.extend({ lat: +p[0], lng: +p[1] }));
@@ -76,7 +90,7 @@ const LocationForm = ({ setPathValue, mapObj, pathObj }: ILocationForm) => {
     <Card
       sx={{
         position: "absolute",
-        width: "300px",
+        width: "380px",
         background: "#fff",
         left: "100px",
         top: "200px",
@@ -85,9 +99,13 @@ const LocationForm = ({ setPathValue, mapObj, pathObj }: ILocationForm) => {
       }}
     >
       <form onSubmit={onSubmit}>
-        <Typography variant="h4" mb="30px" fontWeight="bold">
-          Find the way
-        </Typography>
+        {submitedLocations ? (
+          <PathTitle start={submitedLocations[0]} end={submitedLocations[1]} />
+        ) : (
+          <Typography variant="h4" mb="30px" fontWeight="bold">
+            Find the way
+          </Typography>
+        )}
         <SearchLocationBox
           inputRef={startInputRef}
           id="start"
@@ -100,6 +118,7 @@ const LocationForm = ({ setPathValue, mapObj, pathObj }: ILocationForm) => {
           label="Drop-off point"
           disabled={isLoading}
         />
+        <PathDesc pathValue={pathValue} />
         <Box>
           <Button
             type="submit"
