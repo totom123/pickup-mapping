@@ -19,7 +19,7 @@ type IGetRouteRes =
   | IGetRouteResFailure
   | IGetRouteResInProgress;
 const BASE_URL = "https://sg-mock-api.lalamove.com";
-const RETRY_TIME = 5;
+const RETRY_TIME = 3;
 
 export const onPostRoute = (origin: string, destination: string) => {
   const fetchFn = async () => {
@@ -32,7 +32,6 @@ export const onPostRoute = (origin: string, destination: string) => {
     }
     return res.data.token;
   };
-
   return pRetry(fetchFn, { retries: RETRY_TIME });
 };
 export const onGetRouteByToken = (token: string) => {

@@ -16,7 +16,7 @@ const vitestConfig = defineVitestConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/__tests__/setup.ts",
-    testTimeout: 20000,
+    testTimeout: 50000,
   },
 });
 

@@ -1,5 +1,5 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import { expect, vi } from "vitest";
+import { render, waitFor } from "@testing-library/react";
+import { expect } from "vitest";
 import App from "../App";
 
 describe("Main Map Component", () => {

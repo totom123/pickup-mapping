@@ -55,6 +55,9 @@ const MainMap = () => {
         return;
       }
       const token = await onPostRoute(startVal, endVal);
+      if (!token) {
+        throw new Error("Route token not found, please try again later.");
+      }
       const res = await onGetRouteByToken(token);
       if (res.status === "failure") {
         throw new Error(res.error);
