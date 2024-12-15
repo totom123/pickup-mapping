@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { truncate } from "lodash";
 import { IGetRouteResSuccess } from "../services/routeApis";
 
 const PathDesc = ({ pathValue }: { pathValue?: IGetRouteResSuccess }) =>

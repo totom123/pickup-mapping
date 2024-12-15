@@ -14,7 +14,7 @@ function App() {
         autoHideDuration={5000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
-        <Box sx={{ height: "100vh" }} className="App">
+        <Box height="100vh" className="App">
           <MainMap />
         </Box>
       </SnackbarProvider>
