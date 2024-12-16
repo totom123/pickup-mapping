@@ -9,7 +9,7 @@ const useGoMap = () => {
     setTimeout(() => map.setZoom(12), 100);
     setMapObj(map);
   }, []);
-  const onUnmountMap = useCallback((map: google.maps.Map) => {
+  const onUnmountMap = useCallback(() => {
     setMapObj(undefined);
   }, []);
   return { mapObj, onLoadMap, onUnmountMap };

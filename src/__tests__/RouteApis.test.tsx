@@ -8,7 +8,7 @@ describe("Route apis", () => {
       axiosPost: vi.fn(),
       axiosGet: vi.fn(),
     }));
-    // @ts-ignore
+    // @ts-expect-error mock api
     vi.mock(import("axios"), async (importOriginal) => {
       const actual = await importOriginal();
       return {

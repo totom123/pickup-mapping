@@ -1,14 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   GoogleMap,
-  MapContext,
   Marker,
   Polyline,
-  PolylineF,
-  StandaloneSearchBox,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import { HK_CENTER } from "../constants/geo";
 import LocationForm from "./LocationForm";
 import {
@@ -20,7 +16,6 @@ import { enqueueSnackbar } from "notistack";
 import { isAxiosError } from "axios";
 import useGoMap from "../hooks/useGoMap";
 import useGoLine from "../hooks/useGoLine";
-import { useQuery } from "@tanstack/react-query";
 
 const MainMap = () => {
   const { isLoaded } = useJsApiLoader({

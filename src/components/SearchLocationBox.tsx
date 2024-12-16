@@ -1,4 +1,4 @@
-import { Autocomplete, StandaloneSearchBox } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
 
 interface ISearchLocationBox {

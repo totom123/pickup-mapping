@@ -5,7 +5,7 @@ const useGoLine = () => {
   const onLoadPath = useCallback((path: google.maps.Polyline) => {
     setPathObj(path);
   }, []);
-  const onUnmontPath = useCallback((path: google.maps.Polyline) => {
+  const onUnmontPath = useCallback(() => {
     setPathObj(undefined);
   }, []);
   return { pathObj, onLoadPath, onUnmontPath };

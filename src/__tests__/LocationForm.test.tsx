@@ -24,7 +24,7 @@ describe("Location Form Component", () => {
     };
   };
   beforeAll(() => {
-    // @ts-ignore
+    // @ts-expect-error mock api
     vi.mock(import("@react-google-maps/api"), () => {
       return {
         useJsApiLoader: vi.fn().mockReturnValue({ isLoaded: true }),
@@ -115,7 +115,7 @@ describe("Location Form Component", () => {
     // expect(await screen.getByTestId("pathTitle").textContent).toEqual("");
   });
   it("should display markers if onGetRouteByToken is success", async () => {
-    const { mocks, submitBtn, endInput, startInput, uiUtils } = setup();
+    const { mocks, submitBtn, endInput, startInput } = setup();
     vi.mock(import("../services/routeApis"), () => {
       return {
         onGetRouteByToken: mocks.onGetRouteByToken,
