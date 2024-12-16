@@ -14,17 +14,20 @@ import {
 } from "../services/routeApis";
 import { enqueueSnackbar } from "notistack";
 import { isAxiosError } from "axios";
-import useGoMap from "../hooks/useGoMap";
-import useGoLine from "../hooks/useGoLine";
+import { useMediaQuery, useTheme } from "@mui/material";
+import useGooMap from "../hooks/useGooMap";
+import useGooLine from "../hooks/useGooLine";
 
 const MainMap = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_KEY,
     libraries: ["maps", "places"],
   });
-  const { mapObj, onLoadMap, onUnmountMap } = useGoMap();
-  const { pathObj, onLoadPath, onUnmontPath } = useGoLine();
+  const { mapObj, onLoadMap, onUnmountMap } = useGooMap();
+  const { pathObj, onLoadPath, onUnmontPath } = useGooLine();
   const [isLoading, setIsLoading] = useState(false);
   const [pathValue, setPathValue] = useState<IGetRouteResSuccess | undefined>();
   const [submitedLocations, setSubmitedLocations] = useState<
@@ -62,7 +65,7 @@ const MainMap = () => {
       if (mapObj) {
         const allPoints = new window.google.maps.LatLngBounds();
         res.path.forEach((p) => allPoints.extend({ lat: +p[0], lng: +p[1] }));
-        mapObj.fitBounds(allPoints);
+        mapObj.fitBounds(allPoints, { bottom: isMobile ? 250 : 0 });
       }
       if (pathObj) {
         pathObj.setPath(res.path.map((p) => ({ lat: +p[0], lng: +p[1] })));
@@ -91,6 +94,8 @@ const MainMap = () => {
       mapContainerStyle={{
         width: "100%",
         height: "100%",
+        paddingBottom: "50vh",
+        boxSizing: "border-box",
       }}
       onLoad={onLoadMap}
       onUnmount={onUnmountMap}

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-const useGoLine = () => {
+const useGooLine = () => {
   const [pathObj, setPathObj] = useState<google.maps.Polyline | undefined>();
   const onLoadPath = useCallback((path: google.maps.Polyline) => {
     setPathObj(path);
@@ -11,4 +11,4 @@ const useGoLine = () => {
   return { pathObj, onLoadPath, onUnmontPath };
 };
 
-export default useGoLine;
+export default useGooLine;
