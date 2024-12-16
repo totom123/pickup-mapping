@@ -1,7 +1,14 @@
 {
-  "name": "pickup-mapping",
-  "version": "0.1.0",
-  "private": true,
+  "name": "route-wizard",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "test:watch": "vitest ",
+    "test:run": "vitest run",
+    "lint": "eslint src",
+    "prepare": "husky"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -22,14 +29,6 @@
     "react-dom": "^19.0.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "test:watch": "vitest ",
-    "test:run": "vitest run",
-    "lint": "eslint src",
-    "prepare": "husky"
   },
   "eslintConfig": {
     "extends": [

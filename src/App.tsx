@@ -1,5 +1,3 @@
-import React from "react";
-import "./App.css";
 import MainMap from "./components/MainMap";
 import { Box } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

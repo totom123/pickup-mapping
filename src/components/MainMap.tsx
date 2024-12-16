@@ -82,48 +82,46 @@ const MainMap = () => {
     }
   };
 
-  // if (!isLoaded) {
-  //   return null;
-  // }
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
-    isLoaded && (
-      <GoogleMap
-        mapContainerStyle={{
-          width: "100%",
-          height: "100%",
+    <GoogleMap
+      mapContainerStyle={{
+        width: "100%",
+        height: "100%",
+      }}
+      onLoad={onLoadMap}
+      onUnmount={onUnmountMap}
+      center={HK_CENTER}
+      id="google-map-container"
+    >
+      <LocationForm
+        isLoading={isLoading}
+        onReset={onReset}
+        onSubmit={onSubmit}
+        pathValue={pathValue}
+        submitedLocations={submitedLocations}
+      />
+      <Polyline
+        options={{
+          strokeColor: "#000000",
+          strokeWeight: 5,
         }}
-        onLoad={onLoadMap}
-        onUnmount={onUnmountMap}
-        center={HK_CENTER}
-        id="google-map-container"
-      >
-        <LocationForm
-          isLoading={isLoading}
-          onReset={onReset}
-          onSubmit={onSubmit}
-          pathValue={pathValue}
-          submitedLocations={submitedLocations}
-        />
-        <Polyline
-          options={{
-            strokeColor: "#000000",
-            strokeWeight: 5,
-          }}
-          onLoad={onLoadPath}
-          onUnmount={onUnmontPath}
-        />
-        {pathValue?.path
-          ? pathValue.path.map((p, idx) => (
-              <Marker
-                key={p[0] + p[1]}
-                position={{ lat: +p[0], lng: +p[1] }}
-                label={(idx + 1).toString()}
-              />
-            ))
-          : null}
-      </GoogleMap>
-    )
+        onLoad={onLoadPath}
+        onUnmount={onUnmontPath}
+      />
+      {pathValue?.path
+        ? pathValue.path.map((p, idx) => (
+            <Marker
+              key={p[0] + p[1]}
+              position={{ lat: +p[0], lng: +p[1] }}
+              label={(idx + 1).toString()}
+            />
+          ))
+        : null}
+    </GoogleMap>
   );
 };
 
