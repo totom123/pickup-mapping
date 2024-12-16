@@ -65,7 +65,7 @@ const MainMap = () => {
       if (mapObj) {
         const allPoints = new window.google.maps.LatLngBounds();
         res.path.forEach((p) => allPoints.extend({ lat: +p[0], lng: +p[1] }));
-        mapObj.fitBounds(allPoints, { bottom: isMobile ? 250 : 0 });
+        mapObj.fitBounds(allPoints, isMobile ? { bottom: 250 } : undefined);
       }
       if (pathObj) {
         pathObj.setPath(res.path.map((p) => ({ lat: +p[0], lng: +p[1] })));
